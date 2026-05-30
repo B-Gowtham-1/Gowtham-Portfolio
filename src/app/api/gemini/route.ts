@@ -138,7 +138,10 @@ export async function POST(req: Request) {
           });
         }
 
-        // Call official Gemini 2.5 Flash endpoint using native fetch
+        // Call official Gemini 2.5 Flash endpoint with 4-second timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+
         const response = await fetch(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`,
           {
@@ -146,6 +149,7 @@ export async function POST(req: Request) {
             headers: {
               "Content-Type": "application/json"
             },
+            signal: controller.signal,
             body: JSON.stringify({
               contents,
               generationConfig: {
@@ -155,6 +159,7 @@ export async function POST(req: Request) {
             })
           }
         );
+        clearTimeout(timeoutId);
 
         if (response.ok) {
           const resData = await response.json();
@@ -187,16 +192,22 @@ export async function POST(req: Request) {
         });
       }
 
+      // Call Pollinations endpoint with 4.5-second timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 4500);
+
       const pollinationResponse = await fetch("https://text.pollinations.ai/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
+        signal: controller.signal,
         body: JSON.stringify({
           messages: pollinationMessages,
           model: "openai"
         })
       });
+      clearTimeout(timeoutId);
 
       if (pollinationResponse.ok) {
         const replyText = await pollinationResponse.text();
