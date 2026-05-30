@@ -51,7 +51,7 @@ export default function AboutPage() {
           GOWTHAM B
         </h1>
         <p className="text-xs text-zenitsu-yellow mt-2 uppercase tracking-widest font-bold">
-          ⚡ DevOps Engineer Candidate · Cloud Infrastructure Architect · CI/CD Specialist
+          ⚡ B.E. CSE Graduate & Aspiring DevOps Engineer · Cloud Infrastructure Learner
         </p>
         <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">
           Tiruppur, Tamil Nadu, India · Active Deployment: KSR Institute for Engineering and Technology
@@ -71,7 +71,7 @@ export default function AboutPage() {
           <span className="text-[10px] text-zenitsu-yellow font-bold uppercase tracking-widest">[ OPERATOR BIOGRAPHY ]</span>
         </div>
         <p className="text-xs text-gray-300 leading-relaxed">
-          I am <span className="text-zenitsu-yellow font-bold">Gowtham B</span>, a Computer Science and Engineering candidate (2022–2026) 
+          I am <span className="text-zenitsu-yellow font-bold">Gowtham B</span>, a Computer Science and Engineering Graduate (2022–2026) 
           specializing in <span className="text-zenitsu-light font-bold">DevOps engineering</span>, cloud infrastructure automation, 
           and continuous delivery pipelines. My mission is to architect resilient, scalable cloud systems that ship faster and break less.
         </p>

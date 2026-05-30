@@ -672,7 +672,7 @@ export default function ProfessionalPortfolio() {
           
           <div className="space-y-4 text-xs sm:text-sm text-gray-300 leading-relaxed font-inter">
             <p>
-              I am a highly motivated Computer Science Engineering student with a robust and active interest in **Networking Systems**, **DevOps cycles**, **Cloud Infrastructure Orchestrations**, **Linux architectures**, and **Automated Pipelines**.
+              I am a highly motivated Computer Science and Engineering Graduate with a robust and active interest in **Networking Systems**, **DevOps cycles**, **Cloud Infrastructure Orchestrations**, **Linux architectures**, and **Automated Pipelines**.
             </p>
             <p>
               My passion lies in crafting high-efficiency, cloud-native deployments, containerizing applications, configuring isolated secure networks, and provisioning Infrastructure as Code (IaC) configurations to support highly available microservices.
@@ -911,7 +911,7 @@ export default function ProfessionalPortfolio() {
                       STATUS_LEVEL:
                     </span>
                     <p className="text-[10px] font-bold text-gray-400 uppercase">
-                      Degree Candidate
+                      B.E. Graduate
                     </p>
                   </div>
                   <BookOpen className="h-5 w-5 text-zenitsu-yellow animate-pulse" />

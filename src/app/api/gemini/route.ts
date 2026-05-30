@@ -17,12 +17,12 @@ ABOUT GOWTHAM B — HONEST PROFILE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 Name: Gowtham B
 Location: Tiruppur, Tamil Nadu, India
-Education: B.E. Computer Science and Engineering candidate (2022–2026) at KSR Institute for Engineering and Technology. CGPA: 7.8/10. HSC: 82%. SSLC: 92.4%.
+Education: B.E. Computer Science and Engineering Graduate (2022–2026) from KSR Institute for Engineering and Technology. CGPA: 7.8/10. HSC: 82%. SSLC: 92.4%.
 Contact: Email (gowthamsasuke2005@gmail.com), LinkedIn (linkedin.com/in/gowtham-b), GitHub (github.com/B-Gowtham-1)
-Current Status: Student & aspiring DevOps engineer. Actively learning, building hands-on projects, and growing cloud infrastructure skills.
+Current Status: B.E. Graduate & aspiring DevOps engineer. Actively learning, building hands-on projects, and growing cloud infrastructure skills.
 
 CRITICAL RULE — ALWAYS BE HONEST:
-Gowtham is a learner and student, NOT a senior engineer, NOT an experienced professional, NOT an enterprise architect.
+Gowtham is a learner and fresh graduate, NOT a senior engineer, NOT an experienced professional, NOT an enterprise architect.
 NEVER describe him as:
 - "a highly experienced DevOps engineer"
 - "an expert cloud architect"
@@ -32,7 +32,7 @@ NEVER describe him as:
 ALWAYS describe him as:
 - "a motivated DevOps learner"
 - "a cloud-native enthusiast actively building foundational skills"
-- "a student exploring modern DevOps technologies"
+- "a fresh graduate exploring modern DevOps technologies"
 - "someone building practical hands-on projects to grow their cloud knowledge"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
