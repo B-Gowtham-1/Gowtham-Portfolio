@@ -1,0 +1,53 @@
+# ============================================================
+# ⚡ THUNDER SYSTEM — docker-compose.yml
+# Gowtham B's Portfolio — Local Container Orchestration
+# ============================================================
+# docker-compose lets you run the container with one command:
+#   docker-compose up --build
+#
+# Instead of typing a long docker run command every time.
+# ============================================================
+
+version: "3.8"
+
+services:
+  # ── The Portfolio Web App ─────────────────────────────────
+  portfolio:
+    # Name of the Docker image that will be built
+    image: zenitsu-portfolio:latest
+
+    # Build the image from the Dockerfile in current directory
+    build:
+      context: .        # Use current folder as build context
+      dockerfile: Dockerfile  # Which Dockerfile to use
+
+    # Map port 3000 inside container → port 3000 on your machine
+    # Format: "host_port:container_port"
+    # Access the app at: http://localhost:3000
+    ports:
+      - "3000:3000"
+
+    # Environment variables passed INTO the container at runtime.
+    # ⚡ SECURITY: Secrets are NOT baked into the image.
+    #    They are injected here at runtime from your .env file.
+    env_file:
+      - .env.local      # Loads GEMINI_API_KEY and other secrets
+
+    # Additional environment variables (non-secret ones)
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+
+    # Container restart policy:
+    # "unless-stopped" = restart automatically after crashes
+    # or system reboots, UNLESS you manually stop it.
+    restart: unless-stopped
+
+    # Health check: Docker will ping the app every 30 seconds.
+    # If it fails 3 times, the container is marked "unhealthy".
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s

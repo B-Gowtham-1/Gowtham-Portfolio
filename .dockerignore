@@ -1,0 +1,63 @@
+# ============================================================
+# .dockerignore — Files excluded from Docker build context
+# ============================================================
+# Docker copies files into the build context before building.
+# Excluding unnecessary files makes the build:
+#   ✓ Faster      (less data to transfer to Docker daemon)
+#   ✓ Smaller     (nothing leaks into the image accidentally)
+#   ✓ More secure (secrets and local configs stay out)
+# ============================================================
+
+# ── Node.js dependencies ────────────────────────────────────
+# Never copy node_modules — Docker installs them fresh inside
+# the container from package.json. Copying them would:
+#   - Bloat the build context by ~200–500MB
+#   - Risk platform-incompatible binaries (Linux vs macOS)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Next.js build output ────────────────────────────────────
+# The builder stage runs `npm run build` inside Docker.
+# Your local .next/ is irrelevant and could cause conflicts.
+.next
+out
+
+# ── Environment files ───────────────────────────────────────
+# CRITICAL: NEVER include secrets in a Docker image.
+# Your GEMINI_API_KEY and Supabase keys live here.
+# Pass them at runtime using -e or --env-file flags instead.
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# ── Git metadata ─────────────────────────────────────────────
+# Git history is not needed inside the container.
+.git
+.gitignore
+
+# ── Development & editor files ───────────────────────────────
+.vscode
+.idea
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Docker files themselves ──────────────────────────────────
+# No need to copy the Dockerfile into the image.
+Dockerfile
+docker-compose.yml
+docker-compose*.yml
+.dockerignore
+
+# ── TypeScript build info ────────────────────────────────────
+*.tsbuildinfo
+next-env.d.ts
+
+# ── README & docs ────────────────────────────────────────────
+README.md
+*.md
