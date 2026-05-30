@@ -114,6 +114,9 @@ Always use cinematic terminal-style formatting. Keep responses structured, hones
 `;
 
 export async function POST(req: Request) {
+  let geminiErrorDetail = "No key configured";
+  let backupErrorDetail = "Not executed";
+
   try {
     const { messages } = await req.json();
     const recentMessages = messages.slice(-6);
@@ -168,14 +171,18 @@ export async function POST(req: Request) {
           if (replyText) {
             return NextResponse.json({ text: replyText });
           }
+          geminiErrorDetail = "Empty reply text returned from Gemini API";
         } else {
           const errorText = await response.text();
+          geminiErrorDetail = `HTTP ${response.status}: ${errorText.substring(0, 120)}`;
           console.warn("Gemini grid response not OK, attempting free backup path. Error:", errorText);
         }
-      } catch (geminiErr) {
+      } catch (geminiErr: any) {
+        geminiErrorDetail = `Exception: ${geminiErr.message || geminiErr}`;
         console.warn("Gemini connection fault, attempting free backup path. Exception:", geminiErr);
       }
     } else {
+      geminiErrorDetail = "Gemini key is missing on Netlify site environment variables";
       console.warn("Gemini key is missing on host, attempting free backup path.");
     }
 
@@ -216,14 +223,16 @@ export async function POST(req: Request) {
         return NextResponse.json({ text: replyText });
       } else {
         const errText = await pollinationResponse.text();
+        backupErrorDetail = `HTTP ${pollinationResponse.status}: ${errText.substring(0, 120)}`;
         console.error("Backup neural grid failed:", errText);
       }
-    } catch (backupErr) {
+    } catch (backupErr: any) {
+      backupErrorDetail = `Exception: ${backupErr.message || backupErr}`;
       console.error("Backup execution failed completely:", backupErr);
     }
 
     return NextResponse.json(
-      { error: "CONNECTION_FAULT: The primary neural grid reached limits and the backup is currently offline." },
+      { error: `CONNECTION_FAULT: Primary failed (${geminiErrorDetail}). Backup failed (${backupErrorDetail}).` },
       { status: 502 }
     );
 
