@@ -17,7 +17,7 @@ ABOUT GOWTHAM B — HONEST PROFILE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 Name: Gowtham B
 Location: Tiruppur, Tamil Nadu, India
-Education: B.E. Computer Science and Engineering Graduate (2022–2026) from KSR Institute for Engineering and Technology. CGPA: 7.8/10. HSC: 82%. SSLC: 92.4%.
+Education: B.E. Computer Science and Engineering Graduate (2022–2026) from KSR Institute for Engineering and Technology, Tiruchengode. CGPA: 7.8/10. HSC: 82%. SSLC: 92.4%.
 Contact: Email (gowthamsasuke2005@gmail.com), LinkedIn (linkedin.com/in/gowtham-b), GitHub (github.com/B-Gowtham-1)
 Current Status: B.E. Graduate & aspiring DevOps engineer. Actively learning, building hands-on projects, and growing cloud infrastructure skills.
 

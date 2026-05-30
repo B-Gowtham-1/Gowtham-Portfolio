@@ -884,7 +884,7 @@ export default function ProfessionalPortfolio() {
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 pb-4 border-b border-zenitsu-gray">
                 <div>
                   <h3 className="text-sm font-black text-zenitsu-light uppercase">
-                    K S R Institute for Engineering and Technology
+                    K S R Institute for Engineering and Technology, Tiruchengode
                   </h3>
                   <p className="text-xs text-gray-400 uppercase mt-1">
                     Bachelor of Engineering – Computer Science and Engineering
@@ -1064,6 +1064,7 @@ interface ChatMessage {
 function ThunderAISection() {
   const [inputVal, setInputVal] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isStriking, setIsStriking] = useState(false);
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([]);
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
@@ -1157,6 +1158,8 @@ Or just ask naturally: "What projects has Gowtham done?"`,
       } else {
         setChatHistory([...updated, { role: "assistant" as const, content: data.text }]);
         setConsoleLines(prev => [...prev.slice(0, -1), { text: data.text, type: "output" }]);
+        setIsStriking(true);
+        setTimeout(() => setIsStriking(false), 800);
       }
     } catch {
       setConsoleLines(prev => [...prev.slice(0, -1), { text: "[ ERROR ] Network connection fault.", type: "error" }]);
@@ -1211,12 +1214,15 @@ Or just ask naturally: "What projects has Gowtham done?"`,
         ))}
       </div>
 
-      {/* Terminal Console */}
       <div
         onClick={focusInput}
-        className="bg-zenitsu-darkest border-2 border-zenitsu-gray hover:border-zenitsu-yellow/30 transition-colors p-4 sm:p-6 flex flex-col cursor-text relative rounded-sm min-h-[380px] max-h-[520px] overflow-hidden"
-        style={{ boxShadow: '0 0 40px rgba(255,215,0,0.05)' }}
+        className={`bg-zenitsu-darkest border-2 ${isStriking ? 'border-zenitsu-yellow shadow-neonYellow scale-[1.005]' : 'border-zenitsu-gray hover:border-zenitsu-yellow/30'} transition-all duration-150 p-4 sm:p-6 flex flex-col cursor-text relative rounded-sm min-h-[380px] max-h-[520px] overflow-hidden`}
+        style={{ boxShadow: isStriking ? '0 0 50px rgba(255,215,0,0.25)' : '0 0 40px rgba(255,215,0,0.05)' }}
       >
+        {/* Thunder flash overlay */}
+        {isStriking && (
+          <div className="absolute inset-0 bg-white/10 pointer-events-none z-30 animate-pulse mix-blend-overlay" />
+        )}
         {/* Scanline overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.18)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20 z-20" />
 

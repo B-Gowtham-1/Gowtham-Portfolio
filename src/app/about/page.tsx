@@ -58,7 +58,7 @@ export default function AboutPage() {
           ⚡ B.E. CSE Graduate & Aspiring DevOps Engineer · Cloud Infrastructure Learner
         </p>
         <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-wider">
-          Tiruppur, Tamil Nadu, India · Active Deployment: KSR Institute for Engineering and Technology
+          Tiruppur, Tamil Nadu, India · Active Deployment: KSR Institute for Engineering and Technology, Tiruchengode
         </p>
       </motion.div>
 
@@ -112,7 +112,7 @@ export default function AboutPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { label: "B.E. Computer Science & Engineering", sub: "KSR Institute for Engineering and Technology", val: "CGPA 7.8", period: "2022 – 2026", highlight: true },
+            { label: "B.E. Computer Science & Engineering", sub: "KSR Institute for Engineering and Technology, Tiruchengode", val: "CGPA 7.8", period: "2022 – 2026", highlight: true },
             { label: "Higher Secondary Certificate (HSC)", sub: "Tamil Nadu State Board", val: "82%", period: "2021 – 2022", highlight: false },
             { label: "Secondary School Certificate (SSLC)", sub: "Tamil Nadu State Board", val: "92.4%", period: "2019 – 2020", highlight: false }
           ].map((edu, i) => (
