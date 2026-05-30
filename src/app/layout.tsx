@@ -41,6 +41,9 @@ export const metadata: Metadata = {
     "Zenitsu Agatsuma Portfolio"
   ],
   authors: [{ name: "Gowtham B" }],
+  icons: {
+    icon: "/thunder-svgrepo-com.svg",
+  },
 };
 
 export default function RootLayout({

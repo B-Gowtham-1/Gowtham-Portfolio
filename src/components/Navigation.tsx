@@ -55,7 +55,11 @@ export const Navigation: React.FC = () => {
           {/* Logo Identity */}
           <div className="flex-shrink-0 flex items-center">
             <button onClick={() => scrollToSection("hero")} className="flex items-center space-x-2 text-left group">
-              <Zap className="h-5 w-5 text-zenitsu-yellow animate-thunder-blink group-hover:text-zenitsu-orange transition-colors" />
+              <img 
+                src="/thunder-svgrepo-com.svg" 
+                alt="Thunder Logo" 
+                className="h-5 w-5 animate-thunder-blink group-hover:scale-110 transition-transform duration-300" 
+              />
               <span className="text-sm font-bold tracking-widest text-zenitsu-light group-hover:text-zenitsu-yellow transition-all uppercase">
                 GOWTHAM.B <span className="text-zenitsu-yellow font-extrabold text-xs tracking-wider">// DEVOPS</span>
               </span>

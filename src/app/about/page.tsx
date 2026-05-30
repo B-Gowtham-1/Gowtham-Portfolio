@@ -47,7 +47,11 @@ export default function AboutPage() {
           [ CLASSIFIED OPERATOR DOSSIER — CLEARANCE LEVEL: PUBLIC ]
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-zenitsu-light tracking-widest uppercase flex items-center gap-3">
-          <Zap className="h-8 w-8 text-zenitsu-yellow animate-thunder-blink flex-shrink-0" />
+          <img 
+            src="/thunder-svgrepo-com.svg" 
+            alt="Thunder Logo" 
+            className="h-8 w-8 animate-thunder-blink flex-shrink-0" 
+          />
           GOWTHAM B
         </h1>
         <p className="text-xs text-zenitsu-yellow mt-2 uppercase tracking-widest font-bold">

@@ -1176,7 +1176,11 @@ Or just ask naturally: "What projects has Gowtham done?"`,
           // THUNDER_SYSTEM_COGNITIVE_AI
         </span>
         <h2 className="text-2xl sm:text-3xl font-black font-orbitron text-zenitsu-light tracking-wider uppercase flex items-center justify-center gap-3">
-          <Zap className="h-7 w-7 text-zenitsu-yellow animate-thunder-blink" />
+          <img 
+            src="/thunder-svgrepo-com.svg" 
+            alt="Thunder Logo" 
+            className="h-7 w-7 animate-thunder-blink" 
+          />
           THUNDER SYSTEM AI
         </h2>
         <p className="text-xs text-gray-500 font-mono uppercase tracking-widest max-w-xl mx-auto">
