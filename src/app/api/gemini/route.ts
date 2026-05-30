@@ -117,8 +117,8 @@ export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
     
-    // Retrieve Gemini API Key from environment variables safely on server-side
-    const geminiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    const rawKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || "";
+    const geminiKey = rawKey.replace(/[\r\n\s]/g, "");
     
     if (!geminiKey) {
       return NextResponse.json(
@@ -165,8 +165,15 @@ export async function POST(req: Request) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Gemini Endpoint Connection Failure:", errorText);
+      let errorMessage = "Unstable connection to Gemini grid.";
+      try {
+        const parsed = JSON.parse(errorText);
+        if (parsed.error && parsed.error.message) {
+          errorMessage = parsed.error.message;
+        }
+      } catch (e) {}
       return NextResponse.json(
-        { error: "CONNECTION_FAULT: Unstable connection to Gemini grid." },
+        { error: `CONNECTION_FAULT: ${errorMessage}` },
         { status: 502 }
       );
     }
