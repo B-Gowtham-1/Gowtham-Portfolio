@@ -116,76 +116,106 @@ Always use cinematic terminal-style formatting. Keep responses structured, hones
 export async function POST(req: Request) {
   try {
     const { messages } = await req.json();
-    
+    const recentMessages = messages.slice(-6);
+
     const rawKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || "";
     const geminiKey = rawKey.replace(/[\r\n\s]/g, "");
     
-    if (!geminiKey) {
-      return NextResponse.json(
-        { error: "THUNDER_CORE_FAULT: Gemini API key is missing on the host server." },
-        { status: 500 }
-      );
-    }
+    if (geminiKey) {
+      try {
+        // Format chat history for Gemini API
+        const contents = [
+          {
+            role: "user",
+            parts: [{ text: SYSTEM_PROMPT }]
+          }
+        ];
 
-    // Format chat history for Gemini API
-    const contents = [
-      {
-        role: "user",
-        parts: [{ text: SYSTEM_PROMPT }]
+        for (const msg of recentMessages) {
+          contents.push({
+            role: msg.role === "assistant" ? "model" : "user",
+            parts: [{ text: msg.content }]
+          });
+        }
+
+        // Call official Gemini 2.5 Flash endpoint using native fetch
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              contents,
+              generationConfig: {
+                temperature: 0.7,
+                maxOutputTokens: 800
+              }
+            })
+          }
+        );
+
+        if (response.ok) {
+          const resData = await response.json();
+          const replyText = resData.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (replyText) {
+            return NextResponse.json({ text: replyText });
+          }
+        } else {
+          const errorText = await response.text();
+          console.warn("Gemini grid response not OK, attempting free backup path. Error:", errorText);
+        }
+      } catch (geminiErr) {
+        console.warn("Gemini connection fault, attempting free backup path. Exception:", geminiErr);
       }
-    ];
-
-    // Append last 6 messages of context to keep it lightweight but aware
-    const recentMessages = messages.slice(-6);
-    for (const msg of recentMessages) {
-      contents.push({
-        role: msg.role === "assistant" ? "model" : "user",
-        parts: [{ text: msg.content }]
-      });
+    } else {
+      console.warn("Gemini key is missing on host, attempting free backup path.");
     }
 
-    // Call official Gemini 2.5 Flash endpoint using native fetch
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${geminiKey}`,
-      {
+    // ── BACKUP PATH: FREE OPEN-SOURCE MODEL (POLLINATIONS.AI) ──
+    console.info("[ SYSTEM ROUTING ] Diverting cognitive stream to free backup neural grid...");
+    try {
+      const pollinationMessages = [
+        { role: "system", content: SYSTEM_PROMPT }
+      ];
+      
+      for (const msg of recentMessages) {
+        pollinationMessages.push({
+          role: msg.role === "assistant" ? "assistant" : "user",
+          content: msg.content
+        });
+      }
+
+      const pollinationResponse = await fetch("https://text.pollinations.ai/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          contents,
-          generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 800
-          }
+          messages: pollinationMessages,
+          model: "openai"
         })
-      }
-    );
+      });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Gemini Endpoint Connection Failure:", errorText);
-      let errorMessage = "Unstable connection to Gemini grid.";
-      try {
-        const parsed = JSON.parse(errorText);
-        if (parsed.error && parsed.error.message) {
-          errorMessage = parsed.error.message;
-        }
-      } catch (e) {}
-      return NextResponse.json(
-        { error: `CONNECTION_FAULT: ${errorMessage}` },
-        { status: 502 }
-      );
+      if (pollinationResponse.ok) {
+        const replyText = await pollinationResponse.text();
+        return NextResponse.json({ text: replyText });
+      } else {
+        const errText = await pollinationResponse.text();
+        console.error("Backup neural grid failed:", errText);
+      }
+    } catch (backupErr) {
+      console.error("Backup execution failed completely:", backupErr);
     }
 
-    const resData = await response.json();
-    const replyText = resData.candidates?.[0]?.content?.parts?.[0]?.text || 
-      "ERROR: System failed to decrypt message stream.";
-
-    return NextResponse.json({ text: replyText });
+    return NextResponse.json(
+      { error: "CONNECTION_FAULT: The primary neural grid reached limits and the backup is currently offline." },
+      { status: 502 }
+    );
 
   } catch (err: any) {
-    console.error("Gemini execution fault:", err);
+    console.error("Route execution fault:", err);
     return NextResponse.json(
       { error: "FATAL_COGNITIVE_FAULT: Server failed to initialize AI sequence." },
       { status: 500 }
