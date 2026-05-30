@@ -91,7 +91,7 @@ export default function AboutPage() {
           <a href="mailto:gowthamsasuke2005@gmail.com" className="flex items-center gap-1.5 text-[9px] text-gray-400 hover:text-zenitsu-yellow transition-colors uppercase tracking-wider">
             <Mail className="h-3 w-3" /> gowthamsasuke2005@gmail.com
           </a>
-          <a href="https://linkedin.com/in/gowtham-b" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[9px] text-gray-400 hover:text-zenitsu-yellow transition-colors uppercase tracking-wider">
+          <a href="https://www.linkedin.com/in/gowtham-b-57a737257/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[9px] text-gray-400 hover:text-zenitsu-yellow transition-colors uppercase tracking-wider">
             <ExternalLink className="h-3 w-3" /> LinkedIn
           </a>
           <a href="https://github.com/B-Gowtham-1" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-[9px] text-gray-400 hover:text-zenitsu-yellow transition-colors uppercase tracking-wider">

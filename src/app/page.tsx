@@ -630,7 +630,7 @@ export default function ProfessionalPortfolio() {
               GITHUB
             </a>
             <a
-              href="https://linkedin.com/in/gowtham-b"
+              href="https://www.linkedin.com/in/gowtham-b-57a737257/"
               target="_blank"
               rel="noreferrer"
               className="px-5 py-3 bg-zenitsu-dark hover:bg-zenitsu-gray text-zenitsu-light border-2 border-zenitsu-gray transition-all rounded-xs flex items-center gap-2"
@@ -996,7 +996,7 @@ export default function ProfessionalPortfolio() {
 
           {/* LinkedIn Portal */}
           <a 
-            href="https://linkedin.com/in/gowtham-b"
+            href="https://www.linkedin.com/in/gowtham-b-57a737257/"
             target="_blank"
             rel="noreferrer"
             className="bg-zenitsu-dark border-2 border-zenitsu-gray p-6 sketch-border group flex flex-col items-center space-y-4 hover:border-zenitsu-yellow/45 transition-all duration-300 hover:shadow-neonYellow"
@@ -1009,7 +1009,7 @@ export default function ProfessionalPortfolio() {
                 LinkedIn Network
               </h3>
               <p className="text-[10px] text-gray-500 hover:underline">
-                linkedin.com/in/gowtham-b
+                linkedin.com/in/gowtham-b-57a737257/
               </p>
             </div>
             <span className="text-[9px] text-zenitsu-yellow font-bold tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-opacity">
@@ -1134,7 +1134,7 @@ Or just ask naturally: "What projects has Gowtham done?"`,
       setConsoleLines(prev => [...prev, {
         text: `COMMUNICATION PORTALS:
   Email    : gowthamsasuke2005@gmail.com
-  LinkedIn : linkedin.com/in/gowtham-b
+  LinkedIn : linkedin.com/in/gowtham-b-57a737257/
   GitHub   : github.com/B-Gowtham-1`,
         type: "success"
       }]);

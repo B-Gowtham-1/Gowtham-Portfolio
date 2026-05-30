@@ -114,7 +114,7 @@ Role Class : ${user?.role.toUpperCase()}`,
           text: `TELECOMMUNICATION PORTALS:
 ------------------------------------------------------
 Email      : gowthamsasuke2005@gmail.com
-LinkedIn   : linkedin.com/in/gowtham-b
+LinkedIn   : linkedin.com/in/gowtham-b-57a737257/
 GitHub     : github.com/B-Gowtham-1`,
           type: "success"
         }
