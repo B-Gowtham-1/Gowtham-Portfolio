@@ -186,45 +186,58 @@ export async function POST(req: Request) {
       console.warn("Gemini key is missing on host, attempting free backup path.");
     }
 
-    // ── BACKUP PATH: FREE OPEN-SOURCE MODEL (POLLINATIONS.AI) ──
-    console.info("[ SYSTEM ROUTING ] Diverting cognitive stream to free backup neural grid...");
+    // ── BACKUP PATH: GROQ LLAMA-3.1-8B-INSTANT (STABLE HIGH-SPEED BACKUP) ──
+    console.info("[ SYSTEM ROUTING ] Diverting cognitive stream to stable Groq backup neural grid...");
     try {
-      const pollinationMessages = [
+      const groqMessages = [
         { role: "system", content: SYSTEM_PROMPT }
       ];
       
       for (const msg of recentMessages) {
-        pollinationMessages.push({
+        groqMessages.push({
           role: msg.role === "assistant" ? "assistant" : "user",
           content: msg.content
         });
       }
 
-      // Call Pollinations endpoint with 4.5-second timeout
+      const groqKey = process.env.GROQ_API_KEY || "";
+      if (!groqKey) {
+        backupErrorDetail = "Groq API key is missing on Netlify site environment variables";
+        throw new Error(backupErrorDetail);
+      }
+
+      // Call Groq endpoint with 4.5-second timeout
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 4500);
 
-      const pollinationResponse = await fetch("https://text.pollinations.ai/", {
+      const groqResponse = await fetch("https://api.groq.com/openai/v1/chat/completions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${groqKey}`,
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         },
         signal: controller.signal,
         body: JSON.stringify({
-          messages: pollinationMessages,
-          model: "openai"
+          messages: groqMessages,
+          model: "llama-3.1-8b-instant",
+          temperature: 0.7,
+          max_tokens: 800
         })
       });
       clearTimeout(timeoutId);
 
-      if (pollinationResponse.ok) {
-        const replyText = await pollinationResponse.text();
-        return NextResponse.json({ text: replyText });
+      if (groqResponse.ok) {
+        const resData = await groqResponse.json();
+        const replyText = resData.choices?.[0]?.message?.content;
+        if (replyText) {
+          return NextResponse.json({ text: replyText });
+        }
+        backupErrorDetail = "Empty reply text returned from Groq API";
       } else {
-        const errText = await pollinationResponse.text();
-        backupErrorDetail = `HTTP ${pollinationResponse.status}: ${errText.substring(0, 120)}`;
-        console.error("Backup neural grid failed:", errText);
+        const errText = await groqResponse.text();
+        backupErrorDetail = `HTTP ${groqResponse.status}: ${errText.substring(0, 120)}`;
+        console.error("Groq backup neural grid failed:", errText);
       }
     } catch (backupErr: any) {
       backupErrorDetail = `Exception: ${backupErr.message || backupErr}`;
